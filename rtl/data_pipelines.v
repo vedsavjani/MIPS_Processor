@@ -1,5 +1,17 @@
+module PCReg(
+    input clk, reset, enn,
+    input [31:0] pcnext,
+    output reg [31:0] pcF);
+
+    always @(posedge clk) begin
+        if(reset) pcF <= 32'b0;
+        else if (~enn) pcF <= pcnext;
+    end
+
+endmodule
+
 module IF_ID_datapipe(
-    input clk, reset,
+    input clk, reset, enn,
     input [31:0] instrF, pcplus4F,
     output reg [31:0] instrD, pcplus4D);
 
@@ -8,7 +20,7 @@ module IF_ID_datapipe(
             instrD <= 32'b0;
             pcplus4D <= 32'b0;
         end
-        else begin
+        else if (~enn) begin
             instrD <= instrF;
             pcplus4D <= pcplus4F;
         end
@@ -17,26 +29,28 @@ module IF_ID_datapipe(
 endmodule
 
 module ID_EX_datapipe(
-    input clk, reset,
-    input [31:0] rd1, rd2,
-    output reg [31:0] srcAE, writedataE,
-    input [4:0] rtD, rdD,
-    output reg [4:0] rtE, rdE,
+    input clk, reset, clr,
+    input [31:0] rd1D, rd2D,
+    output reg [31:0] rd1E, rd2E,
+    input [4:0] rsD, rtD, rdD,
+    output reg [4:0] rsE, rtE, rdE,
     input [31:0] signimmD, pcplus4D, 
     output reg [31:0] signimmE, pcplus4E);
 
     always @(posedge clk) begin
-        if (reset) begin
-            srcAE <= 32'b0;
-            writedataE <= 32'b0;
+        if (reset || clr) begin
+            rd1E <= 32'b0;
+            rd2E <= 32'b0;
+            rsE <= 0;
             rtE <= 5'b0;
             rdE <= 5'b0;
             signimmE <= 32'b0;
             pcplus4E <= 32'b0;
         end
         else begin
-            srcAE <= rd1;
-            writedataE <= rd2;
+            rd1E <= rd1D;
+            rd2E <= rd2D;
+            rsE <= rsD;
             rtE <= rtD;
             rdE <= rdD;
             signimmE <= signimmD;
