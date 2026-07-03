@@ -1,17 +1,17 @@
 module controller(
-    input clk, reset,
+    input clk, reset, flushE,
     input [5:0] op, funct,
     input zeroM,
-    output regwriteW,
-    output memtoregW,
+    output regwriteM, regwriteW,
+    output memtoregE, memtoregW,
     output memwriteM,
     output [2:0] alucontrolE,
     output alusrcE,
     output pcsrcM,
     output regdstE);
 
-    wire regwriteD, regwriteE, regwriteM;
-    wire memtoregD, memtoregE, memtoregM;
+    wire regwriteD, regwriteE;
+    wire memtoregD, memtoregM;
     wire memwriteD, memwriteE;
     wire branchD, branchE, branchM;
     wire [2:0] alucontrolD;
@@ -32,7 +32,7 @@ module controller(
                 .aluop(aluop),
                 .alucontrol(alucontrolD));
 
-    ID_EX_controlpipe cp1(.clk(clk), .reset(reset),
+    ID_EX_controlpipe cp1(.clk(clk), .reset(reset), .flush(flushE),
                 .regwriteD(regwriteD),
                 .memtoregD(memtoregD), 
                 .memwriteD(memwriteD),
