@@ -1,5 +1,5 @@
 module ID_EX_controlpipe(
-    input clk, reset,
+    input clk, reset, flush,
     input regwriteD, memtoregD, memwriteD,
     input branchD, alusrcD, regdstD,
     input [2:0] alucontrolD,
@@ -8,7 +8,7 @@ module ID_EX_controlpipe(
     output reg [2:0] alucontrolE);
 
     always @(posedge clk) begin
-        if (reset) begin
+        if (reset | flush) begin
             regwriteE <= 0;
             memtoregE <= 0;
             memwriteE <= 0;
