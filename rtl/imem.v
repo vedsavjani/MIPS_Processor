@@ -3,7 +3,7 @@ module imem(
     output [31:0] rd
 );
 
-    reg [31:0] RAM[63:0];
+    reg [31:0] RAM[0:63];
 
     initial begin
         $readmemh("mem/memfile.dat", RAM);
