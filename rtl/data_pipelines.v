@@ -11,12 +11,12 @@ module PCReg(
 endmodule
 
 module IF_ID_datapipe(
-    input clk, reset, enn,
+    input clk, reset, enn, clr,
     input [31:0] instrF, pcplus4F,
     output reg [31:0] instrD, pcplus4D);
 
     always @(posedge clk) begin
-        if (reset) begin
+        if (reset || clr) begin
             instrD <= 32'b0;
             pcplus4D <= 32'b0;
         end
