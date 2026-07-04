@@ -29,7 +29,7 @@ module tb();
             $display("Time=%0t | Store: Addr=%h, Data=%h", $time, aluoutM, writedataM);
             
             if (aluoutM === 84 && writedataM === 7) begin
-                $display("=== SUCCESS ===");
+                $display("Simulation succeeded");
                 $finish;
             end
         end
