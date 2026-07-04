@@ -8,7 +8,7 @@ module mips(
 
     wire [31:0] instrD;
     wire [2:0] alucontrolE;
-    wire equalD;
+    wire equalD, jumpD;
     wire pcsrcD, memtoregM, memtoregW, alusrcE, regdstE, regwriteE, regwriteW;
     wire stallF, stallD, flushE, memtoregE, regwriteM;
     wire [1:0] forwardAE, forwardBE;
@@ -25,6 +25,7 @@ module mips(
                 .alucontrolE(alucontrolE),
                 .alusrcE(alusrcE),
                 .pcsrcD(pcsrcD),
+                .jumpD(jumpD),
                 .regdstE(regdstE));
 
     datapath dp(.clk(clk), .reset(reset),
@@ -42,7 +43,8 @@ module mips(
                 .forwardAE(forwardAE), .forwardBE(forwardBE),
                 .writeregE(writeregE), .writeregM(writeregM), .writeregW(writeregW),
                 .stallF(stallF), .stallD(stallD), .flushE(flushE),
-                .forwardAD(forwardAD), .forwardBD(forwardBD));
+                .forwardAD(forwardAD), .forwardBD(forwardBD),
+                .jumpD(jumpD));
 
     hazard_unit hu(.rsD(rsD), .rtD(rtD), .rsE(rsE), .rtE(rtE), 
                 .writeregE(writeregE), .writeregM(writeregM), .writeregW(writeregW),
