@@ -14,10 +14,11 @@ module datapath(
     input [1:0] forwardAE, forwardBE,
     output [4:0] writeregE, writeregM, writeregW,
     input stallF, stallD, flushE,
-    input forwardAD, forwardBD);
+    input forwardAD, forwardBD,
+    input jumpD);
 
     // Internal wiring
-    wire [31:0] pcnext, pcplus4F, pcplus4D, pcbranchD;
+    wire [31:0] pcnext, pcplus4F, pcplus4D, pcbranchD, pcnextbr;
     wire [31:0] signimmD, signimmE, signimmshD;
     wire [4:0] rdE;
     wire [31:0] resultW, rd1D, rd2D, rd1E, rd2E, srcAE, writedataE, srcBE, aluoutE, a, b;
@@ -27,14 +28,16 @@ module datapath(
 
 
     // Next PC logic 
-    mux2 #(32) pcnextmux(.d0(pcplus4F), .d1(pcbranchD), .s(pcsrcD), .y(pcnext));
+    mux2 #(32) pcnextmux(.d0(pcplus4F), .d1(pcbranchD), .s(pcsrcD), .y(pcnextbr));
+
+    mux2 #(32) pcjmux(.d0(pcnextbr), .d1({pcplus4D[31:28], instrD[25:0], 2'b00}), .s(jumpD), .y(pcnext));
 
     PCReg pcreg(.clk(clk), .reset(reset), .enn(stallF), .pcnext(pcnext), .pcF(pcF));
 
     adder pcadd1(.a(pcF), .b(32'd4), .y(pcplus4F));
 
     // IF_ID datapipe 
-    IF_ID_datapipe if_id(.clk(clk), .reset(reset), .enn(stallD), .clr(pcsrcD),
+    IF_ID_datapipe if_id(.clk(clk), .reset(reset), .enn(stallD), .clr(pcsrcD | jumpD),
                     .instrF(instrF), .pcplus4F(pcplus4F),
                     .instrD(instrD), .pcplus4D(pcplus4D));
 
@@ -99,3 +102,4 @@ module datapath(
     mux2 #(32) resmux(.d0(aluoutW), .d1(readdataW), .s(memtoregW), .y(resultW));
 
 endmodule
+
