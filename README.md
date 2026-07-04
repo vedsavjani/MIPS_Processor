@@ -19,7 +19,8 @@ A ground-up implementation of a MIPS processor in Verilog, progressing through t
 MIPS_Processor/
 ├── rtl/          # Verilog source files
 ├── tb/           # Testbenches
-└── mem/          # memfile.dat (instruction memory)
+├── mem/          # memfile.dat (instruction memory)
+└── images/       # Architecture diagrams
 ```
 
 Branches: `single_cycle`, `multicycle`, `pipelined` (default)
