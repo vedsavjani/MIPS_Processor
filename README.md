@@ -164,7 +164,6 @@ This confirms a write of value `7` to address `84` (`mem[21]`).
 ### Viewing waveforms
 
 ```bash
-vvp sim.vvp
 gtkwave dump.vcd
 ```
 
