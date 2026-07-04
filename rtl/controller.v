@@ -9,6 +9,7 @@ module controller(
     output [2:0] alucontrolE,
     output alusrcE,
     output pcsrcD,
+    output jumpD,
     output regdstE);
 
     wire regwriteD;
@@ -26,6 +27,7 @@ module controller(
                 .alusrc(alusrcD),
                 .regdst(regdstD),
                 .regwrite(regwriteD),
+                .jump(jumpD),
                 .aluop(aluop));
 
     aludec ad(.funct(funct),
