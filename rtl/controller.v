@@ -1,19 +1,19 @@
 module controller(
     input clk, reset, flushE,
     input [5:0] op, funct,
-    input zeroM,
-    output regwriteM, regwriteW,
-    output memtoregE, memtoregW,
+    input equalD,
+    output branchD,
+    output regwriteE, regwriteM, regwriteW,
+    output memtoregE, memtoregM, memtoregW,
     output memwriteM,
     output [2:0] alucontrolE,
     output alusrcE,
-    output pcsrcM,
+    output pcsrcD,
     output regdstE);
 
-    wire regwriteD, regwriteE;
-    wire memtoregD, memtoregM;
+    wire regwriteD;
+    wire memtoregD;
     wire memwriteD, memwriteE;
-    wire branchD, branchE, branchM;
     wire [2:0] alucontrolD;
     wire alusrcD;
     wire regdstD;
@@ -36,14 +36,12 @@ module controller(
                 .regwriteD(regwriteD),
                 .memtoregD(memtoregD), 
                 .memwriteD(memwriteD),
-                .branchD(branchD), 
                 .alusrcD(alusrcD), 
                 .regdstD(regdstD),
                 .alucontrolD(alucontrolD),
                 .regwriteE(regwriteE), 
                 .memtoregE(memtoregE), 
                 .memwriteE(memwriteE),
-                .branchE(branchE), 
                 .alusrcE(alusrcE), 
                 .regdstE(regdstE),
                 .alucontrolE(alucontrolE));
@@ -52,11 +50,9 @@ module controller(
                 .regwriteE(regwriteE), 
                 .memtoregE(memtoregE), 
                 .memwriteE(memwriteE), 
-                .branchE(branchE),
                 .regwriteM(regwriteM), 
                 .memtoregM(memtoregM), 
-                .memwriteM(memwriteM),
-                .branchM(branchM));
+                .memwriteM(memwriteM));
 
     MEM_WB_controlpipe cp3(.clk(clk), .reset(reset),
                 .regwriteM(regwriteM), 
@@ -64,5 +60,5 @@ module controller(
                 .regwriteW(regwriteW), 
                 .memtoregW(memtoregW));
 
-    assign pcsrcM = branchM && zeroM;
+    assign pcsrcD = branchD && equalD;
 endmodule

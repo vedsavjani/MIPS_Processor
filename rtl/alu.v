@@ -1,8 +1,7 @@
 module alu(
     input [31:0] srca, srcb,
     input [2:0] alucontrol,
-    output reg [31:0] aluresult,
-    output zero
+    output reg [31:0] aluresult
     );
 
     always @(*) begin
@@ -19,8 +18,5 @@ module alu(
             // the sign bit from srca-srcb, if its 1, then its negative, else positive
             3'b111 : aluresult = (srca - srcb) >> 31;
         endcase
-    end 
-
-    assign zero = (aluresult==0);
-
+    end
 endmodule

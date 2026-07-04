@@ -32,10 +32,10 @@ module ID_EX_datapipe(
     input clk, reset, clr,
     input [31:0] rd1D, rd2D,
     output reg [31:0] rd1E, rd2E,
+    input [31:0] signimmD,
+    output reg [31:0] signimmE,
     input [4:0] rsD, rtD, rdD,
-    output reg [4:0] rsE, rtE, rdE,
-    input [31:0] signimmD, pcplus4D, 
-    output reg [31:0] signimmE, pcplus4E);
+    output reg [4:0] rsE, rtE, rdE);
 
     always @(posedge clk) begin
         if (reset || clr) begin
@@ -45,7 +45,6 @@ module ID_EX_datapipe(
             rtE <= 5'b0;
             rdE <= 5'b0;
             signimmE <= 32'b0;
-            pcplus4E <= 32'b0;
         end
         else begin
             rd1E <= rd1D;
@@ -54,7 +53,6 @@ module ID_EX_datapipe(
             rtE <= rtD;
             rdE <= rdD;
             signimmE <= signimmD;
-            pcplus4E <= pcplus4D;
         end
     end
 
