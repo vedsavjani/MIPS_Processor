@@ -30,9 +30,9 @@ Branches: `single_cycle`, `multicycle`, `pipelined` (default)
 
 ### Architecture
 
-![Single-cycle TOP](images/single_cycle_top.png)
+![Single-cycle TOP module](images/single_cycle_TOP.png)
 
-<!-- MIPS-level diagram: add image here -->
+![Single-cycle Datapath and Controller](images/single_cycle_dp_c.png)
 
 ### How it works
 
@@ -52,9 +52,11 @@ R-type (add, sub, and, or, slt), lw, sw, beq, addi, j
 
 ### Architecture
 
-<!-- TOP-level diagram: add image here -->
+![Multicycle TOP module](images/multi_cycle_TOP.png)
 
-<!-- MIPS-level diagram: add image here -->
+![Multicycle Control Unit FSM](images/multi_cycle_controller_FSM.png)
+
+![Multicycle Datapath](images/multi_cycle_dp.png)
 
 ### How it works
 
@@ -74,9 +76,9 @@ R-type (add, sub, and, or, slt), lw, sw, beq, addi, j
 
 ### Architecture
 
-<!-- TOP-level diagram: add image here -->
+![Pipelined TOP module](images/pipelined_TOP.png)
 
-<!-- MIPS-level diagram: add image here -->
+![Pipelined Datapath, Controller and Hazard Unit](images/pipelined_dp_c_hu.png)
 
 ### How it works
 
