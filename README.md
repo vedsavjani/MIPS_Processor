@@ -9,6 +9,7 @@ A ground-up implementation of a MIPS processor in Verilog, progressing through t
 - [Single-Cycle](#single-cycle)
 - [Multicycle](#multicycle)
 - [Pipelined](#pipelined)
+- [How to Simulate](#how-to-simulate)
 
 ---
 
