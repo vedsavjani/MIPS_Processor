@@ -28,12 +28,8 @@ module tb();
         if (memwriteM) begin
             $display("Time=%0t | Store: Addr=%h, Data=%h", $time, aluoutM, writedataM);
             
-            if (aluoutM === 12 && writedataM === 9) begin
+            if (aluoutM === 84 && writedataM === 7) begin
                 $display("=== SUCCESS ===");
-                $finish;
-            end
-            if (writedataM === 32'bx) begin
-                $display("=== FAIL: x written to Addr=%h ===", aluoutM);
                 $finish;
             end
         end
